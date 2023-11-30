@@ -27,3 +27,16 @@ void load_script(const char* filename, bool show_script = false) {
 
     apply_syntax_coloring(script);
 }
+void load_script() {
+    string filename;
+    cout << "Introduce el nombre del archivo: ";
+    cin >> filename;
+
+    load_script(filename.c_str());
+}
+
+int main() {
+    load_script();
+
+    return 0;
+}
