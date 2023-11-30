@@ -1,50 +1,19 @@
 #include <iostream>
-#include <fstream>
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
-void apply_syntax_coloring(const string& script) {
-    cout << "Aplicando coloración sintáctica en Tiny Lisp: " << script << endl;
-}
+struct ColorConsole
+{
+    static constexpr auto fg_blue = "\033[34m";
+    static constexpr auto bg_white = "\033[47m";
+};
 
-void load_script(const char* filename, bool show_script = false) {
-    ifstream file(filename);
+struct ConsoleBox
+{
+    void new_text() {/*...*/}
+    void set_text(const string &text) { cout << text << endl; }
+};
 
-    if (!file.is_open()) {
-        cerr << "Error: No se pudo abrir el archivo " << filename << endl;
-        return;
-    }
-    string script;
-    try {
-        script.assign((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    } catch (const exception& e) {
-        cerr << "Error de lectura: " << e.what() << endl;
-        file.close();
-        return;
-    }
-
-    file.close();
-
-    if (show_script) {
-        cout << "Contenido del archivo '" << filename << "':" << endl;
-        cout << script << endl;
-    } else {
-        cout << "Archivo '" << filename << "' cargado en la consola." << endl;
-    }
-
-    apply_syntax_coloring(script);
-}
-void load_script() {
-    string filename;
-    cout << "Introduce el nombre del archivo: ";
-    cin >> filename;
-
-    load_script(filename.c_str());
-}
-
-int main() {
-    load_script();
-
-    return 0;
-}
+ConsoleBox *consoleBox = new ConsoleBox;
