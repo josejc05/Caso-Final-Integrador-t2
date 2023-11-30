@@ -15,7 +15,15 @@ void load_script(const char* filename, bool show_script = false) {
         cerr << "Error: No se pudo abrir el archivo " << filename << endl;
         return;
     }
-    string script((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    string script;
+    try {
+        script.assign((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    } catch (const exception& e) {
+        cerr << "Error de lectura: " << e.what() << endl;
+        file.close();
+        return;
+    }
+
     file.close();
 
     if (show_script) {
