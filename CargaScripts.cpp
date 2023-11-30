@@ -39,3 +39,24 @@ void load_script(const char* filename, bool show_script = false)
         }
         fclose(f);
         f = nullptr;
+        if (show_script)
+        {
+            cout << ColorConsole::fg_blue << ColorConsole::bg_white;
+            cout << script << endl;
+        }
+        consoleBox->new_text();
+        consoleBox->set_text(script);
+    }
+    catch (const std::exception& e)
+    {
+        cerr << "Error durante la lectura del archivo: " << e.what() << endl;
+        if (f)
+            fclose(f);
+    }
+    catch (...)
+    {
+        cerr << "Error desconocido durante la lectura del archivo" << endl;
+        if (f)
+            fclose(f);
+    }
+}
