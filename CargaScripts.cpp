@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <cstdio>
 
 using namespace std;
@@ -17,6 +18,7 @@ struct ConsoleBox
 };
 
 ConsoleBox *consoleBox = new ConsoleBox;
+
 void load_script(const char* filename, bool show_script = false)
 {
     string script;
@@ -24,7 +26,7 @@ void load_script(const char* filename, bool show_script = false)
 
     if (!file) {
         if (file.fail()) {
-            cerr << "Error: Fallo en la operación de apertura del archivo " << filename << endl;
+            cerr << "Error: Fallo en la operacion de apertura del archivo " << filename << endl;
         } else {
             cerr << "Error: El archivo " << filename << " no existe." << endl;
         }
@@ -40,4 +42,21 @@ void load_script(const char* filename, bool show_script = false)
     }
     consoleBox->new_text();
     consoleBox->set_text(script);
+}
+
+void load_script()
+{
+    char filename[500];
+    printf("Archivo: ");
+    scanf("%499s", filename);
+    load_script(filename, true);
+}
+
+int main()
+{
+    load_script();
+
+
+
+    return 0;
 }
