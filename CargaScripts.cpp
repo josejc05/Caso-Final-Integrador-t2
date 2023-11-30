@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <cstdio>
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 struct ColorConsole
 {
@@ -21,15 +22,16 @@ ConsoleBox *consoleBox = new ConsoleBox;
 
 void load_script(const char* filename, bool show_script = false)
 {
+    if (!fs::exists(filename)) {
+        cerr << "Error: El archivo " << filename << " no existe." << endl;
+        return;
+    }
+
     string script;
     ifstream file(filename);
 
     if (!file) {
-        if (file.fail()) {
-            cerr << "Error: Fallo en la operacion de apertura del archivo " << filename << endl;
-        } else {
-            cerr << "Error: El archivo " << filename << " no existe." << endl;
-        }
+        cerr << "Error: Fallo en la operación de apertura del archivo " << filename << endl;
         return;
     }
 
@@ -55,8 +57,6 @@ void load_script()
 int main()
 {
     load_script();
-
-
 
     return 0;
 }
